@@ -31,7 +31,7 @@ class UsersController < ApplicationController
         #creates new users and persists them to the database, but only if the info in params is valid
         if params[:username] != "" && params[:email] != "" && params[:password] != ""
             @user = User.create(params)
-
+            session[:user_id] = @user.id #signs the user in without redirecting them to the login page
             redirect "/users/#{@user.id}"
         else 
             #user gets an error message and redirects back to signup page
