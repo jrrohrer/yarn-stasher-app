@@ -1,0 +1,3 @@
+class YarnsController < ApplicationController
+
+end

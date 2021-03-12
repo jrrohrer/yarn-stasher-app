@@ -7,5 +7,5 @@ end
 Rack::MethodOverride
 
 use UsersController
-#use YarnsController
+use YarnsController
 run ApplicationController
