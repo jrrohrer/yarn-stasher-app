@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     #logs the user out and redirects to the home page
     get '/logout' do
         session.clear
-        erb :index #if i use 'redirect to '/' here, it just goes to the show page for the first user in the database. not sure why.'
+        redirect to '/'
     end
 
 end
