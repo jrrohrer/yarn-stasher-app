@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+    #this controller should handle all of the user actions: logging in, signing up, creating a new user, redirecting to landing page, and logging out
+
     #routes for logging in
     get '/login' do
         #render the login form
