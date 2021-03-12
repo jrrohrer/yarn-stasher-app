@@ -16,17 +16,35 @@ class UsersController < ApplicationController
             #redirect to the user's landing page
             redirect to "/users/#{@user.id}"
         else
-            #user gets an error message and redirects to login page
+            #user gets an error message and redirects back to login page
+            redirect to '/users/login'
         end
     end
 
     #routes for signing up
     get '/signup' do
+        #renders the signup form
+        erb :'/users/signup'
+    end
+
+    post '/signup' do
+        #creates new users and persists them to the database, but only if the info in params is valid
+        if params[:username] != "" && params[:email] != "" && params[:password] != ""
+            @user = User.create(params)
+
+            redirect "/users/#{@user.id}"
+        else 
+            #user gets an error message and redirects back to signup page
+            redirect to '/users/signup'
+        end
 
     end
 
     #show route - user's landing page
     get '/users/:id' do
+        @user = User.find_by(id: params[:id])
         erb :'/users/show'
     end
+
+
 end
