@@ -4,7 +4,6 @@ class UsersController < ApplicationController
 
     #routes for logging in
     get '/login' do
-        #render the login form
         erb :'/users/login'
     end
 
@@ -25,7 +24,6 @@ class UsersController < ApplicationController
 
     #routes for signing up
     get '/signup' do
-        #renders the signup form
         erb :'/users/signup'
     end
 
@@ -51,7 +49,7 @@ class UsersController < ApplicationController
     #logs the user out and redirects to the home page
     get '/logout' do
         session.clear
-        redirect '/'
+        erb :index #if i use 'redirect to '/' here, it just goes to the show page for the first user in the database. not sure why.'
     end
 
 end
