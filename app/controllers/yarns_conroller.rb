@@ -17,24 +17,28 @@ class YarnsController < ApplicationController
 
     post '/yarns' do
         #creates and persists the new yarn to the database
+        #checks that the user is logged in and that the form was completed
         #redirects the user to view the individual yarn they just created
-        #if logged_in?
-         #   if params[:name] == "" && params[:color] == "" && params[:weight] == "" && params[:fiber_content] == ""
-          #      redirect to '/yarns/new'
-           # else
-            #    @yarn = Yarn.create(params)
-             #   redirect to '/yarns/:id'
-            #end
-        #else
-        #    redirect to '/'
-        #end
+        if logged_in?
+            if params[:name] != "" && params[:color] != "" && params[:weight] != "" && params[:fiber] != ""
+                @yarn = Yarn.create(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber], user_id: current_user.id)
+                binding.pry
+                redirect to "/yarns/#{@yarn.id}"
+            else
+                redirect to '/yarns/new'
+            end
+        else
+            redirect to '/'
+        end
 
-        raise params.inspect
+        
     end
 
     get '/yarns/:id' do
         #allows user to view individual yarn
         #maybe a better place for links to edit and delete
+        @yarn = Yarn.find(params[:id])
+        erb :'/yarns/show'
     end
 
     get '/yarns/:id/edit' do
