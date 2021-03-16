@@ -3,3 +3,6 @@
 <p>Main Color: <%= @yarn.color %></p>
 <p>Weight: <%= @yarn.weight %><p>
 <p>Fiber: <%= @yarn.fiber %></p>
+
+<button><a href="/yarns/<%= @yarn.id %>/edit">Edit This Yarn</a></button>
+<button><a href='/yarns/<%= @yarn.id %>/delete'>Delete This Yarn</a></button>
