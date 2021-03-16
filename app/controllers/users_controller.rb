@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     #logs the user out and redirects to the home page
     get '/logout' do
         session.clear
-        redirect '/login'
+        redirect '/'
     end
 
 end
