@@ -22,7 +22,6 @@ class YarnsController < ApplicationController
         if logged_in?
             if params[:name] != "" && params[:color] != "" && params[:weight] != "" && params[:fiber] != ""
                 @yarn = Yarn.create(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber], user_id: current_user.id)
-                binding.pry
                 redirect to "/yarns/#{@yarn.id}"
             else
                 redirect to '/yarns/new'
@@ -37,21 +36,46 @@ class YarnsController < ApplicationController
     get '/yarns/:id' do
         #allows user to view individual yarn
         #maybe a better place for links to edit and delete
-        @yarn = Yarn.find(params[:id])
+        set_yarn
         erb :'/yarns/show'
     end
 
     get '/yarns/:id/edit' do
         #renders a form to edit an individual yarn
-        @yarn = Yarn.find(params[:id])
-        erb :'/yarns/edit'
+        set_yarn
+        if logged_in?
+            if @yarn.user == current_user
+                erb :'/yarns/edit'
+            else
+                redirect to "/users/#{current_user.id}"
+            end
+        else
+            redirect '/'
+        end
     end
 
     patch '/yarns/:id' do
         #updates an individual yarn entry based on the user's input in the edit form.
+        set_yarn
+        if logged_in?
+          if @yarn.user == current_user
+            @yarn.update(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber])
+            redirect to "/yarns/#{@yarn.id}"
+          else
+            redirect to "/users/#{current_user.id}"
+          end
+        else
+            redirect to '/'
+        end
     end
 
     get '/yarns/:id/delete' do
         #removes the yarn from the database
+    end
+
+    private
+
+    def set_yarn
+        @yarn = Yarn.find(params[:id])
     end
 end
