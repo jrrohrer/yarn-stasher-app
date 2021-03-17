@@ -1,0 +1,14 @@
+<h2>Edit Yarn</h2>
+
+<form action='/yarns' method='post'>
+    <input type='hidden' name='_method' value='PATCH'>
+    <label for='name'>Brand Name: </label>
+        <input type='text' name='name' value='<%= @yarn.name %>'><br>
+    <label for='color'>Main Color: </label>
+        <input type='text' name='color' value='<%= @yarn.color %>'><br>
+    <label for='weight'>Yarn Weight: </label>
+        <input type='text' name='weight' value='<%= @yarn.weight %>'><br>
+    <label for='fiber'>Fiber Content: </label>
+        <input type='text' name='fiber' value='<%= @yarn.fiber %>'><br>
+    <input type='submit' value='Update Yarn'>
+</form>

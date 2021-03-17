@@ -43,6 +43,8 @@ class YarnsController < ApplicationController
 
     get '/yarns/:id/edit' do
         #renders a form to edit an individual yarn
+        @yarn = Yarn.find(params[:id])
+        erb :'/yarns/edit'
     end
 
     patch '/yarns/:id' do
