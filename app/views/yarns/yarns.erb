@@ -2,6 +2,6 @@
 
 
 <% @yarns.each do |yarn| %>
-    <div><%= yarn.name %></div>
+    <div><a href='/yarns/<%= yarn.id %>'><%= yarn.name %></a></div>
 <% end %>
 
