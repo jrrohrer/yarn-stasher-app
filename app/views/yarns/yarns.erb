@@ -1,7 +1,19 @@
-<h2>Here are all of your yarns: </h2>
+<h2>All Yarns</h2>
+<p>Click the yarn's brand name to view, edit, or delete that yarn.</p>
 
-
-<% @yarns.each do |yarn| %>
-    <div><a href='/yarns/<%= yarn.id %>'><%= yarn.name %></a></div>
-<% end %>
-
+<table>
+    <tr>
+        <th scope='col'>Brand</th>
+        <th scope='col'>Color</th>
+        <th scope='col'>Weight</th>
+        <th scope='col'>Fiber</th>
+    </tr>
+    <% @yarns.each do |yarn|%>
+        <tr>
+            <td><a href='/yarns/<%= yarn.id %>'><%= yarn.name %></a></td>
+            <td><%= yarn.color%></td>
+            <td><%= yarn.weight%></td>
+            <td><%= yarn.fiber%></td>
+        </tr>
+    <% end %>
+</table>
