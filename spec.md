@@ -27,7 +27,7 @@ Specs:
         [x] User can't log in with an account that doesn't exist in the db
     Sign Up:
         [x] User can't sign up with a blank form
-        [] User can't sing up with an account that already exists
+        [] User can't sing up with an account that already exist
 [] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new)
 [] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
 
@@ -37,3 +37,8 @@ Confirm:
 [x] Your commit messages are meaningful
 [x] You made the changes in a commit that relate to the commit message
 [x] You don't include changes in a commit that aren't related to the commit message
+
+Extended Goals:
+[] Add attributes to Yarn objects (such as number of skeins or yardage)
+[] Basic Styling
+[] Error messages
