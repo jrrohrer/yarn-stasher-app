@@ -27,6 +27,11 @@ class ApplicationController < Sinatra::Base
     def current_user
       @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id] #will return a user if it exists, or will return NIL
     end
+
+    def authorized_to_change?(yarn)
+      #checks that the user owns the yarn before allowing them access to methods/buttons to edit or delete yarns
+      yarn.user == current_user
+    end
   end
 
 end
