@@ -4,5 +4,8 @@
 <p>Weight: <%= @yarn.weight %><p>
 <p>Fiber: <%= @yarn.fiber %></p>
 
-<button><a href="/yarns/<%= @yarn.id %>/edit">Edit This Yarn</a></button>
-<button><a href='/yarns/<%= @yarn.id %>/delete'>Delete This Yarn</a></button>
+
+<% if authorized_to_change?(@yarn) %>
+    <button><a href="/yarns/<%= @yarn.id %>/edit">Edit This Yarn</a></button>
+    <button><a href='/yarns/<%= @yarn.id %>/delete'>Delete This Yarn</a></button>
+<% end %>
