@@ -1,7 +1,5 @@
 class YarnsController < ApplicationController
     get '/yarns' do
-        #allows user to view all of their yarns
-        #view should contain links to edit or delete yarns?
         if logged_in?
             @yarns = Yarn.all.select {|yarn| yarn.user_id == session[:user_id]}
             erb :'/yarns/yarns'
@@ -11,7 +9,6 @@ class YarnsController < ApplicationController
     end
 
     get '/yarns/new' do 
-        #renders a form to allow the user to create a new yarn
         erb :'/yarns/new'
     end
 
@@ -24,6 +21,7 @@ class YarnsController < ApplicationController
                 @yarn = Yarn.create(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber], user_id: current_user.id)
                 redirect to "/yarns/#{@yarn.id}"
             else
+                flash[:message] = "Please enter some info about your yarn to create a new entry."
                 redirect to '/yarns/new'
             end
         else
@@ -34,8 +32,6 @@ class YarnsController < ApplicationController
     end
 
     get '/yarns/:id' do
-        #allows user to view individual yarn
-        #maybe a better place for links to edit and delete
         set_yarn
         erb :'/yarns/show'
     end
@@ -60,8 +56,10 @@ class YarnsController < ApplicationController
         if logged_in?
           if authorized_to_change?(@yarn)
             @yarn.update(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber])
+            flash[:message] = "Yarn updated successfully."
             redirect to "/yarns/#{@yarn.id}"
           else
+            flash[:message] = "You are not authorized to edit that entry."
             redirect to "/users/#{current_user.id}"
           end
         else
@@ -74,6 +72,7 @@ class YarnsController < ApplicationController
         set_yarn
         if authorized_to_change?(@yarn)
             @yarn.destroy
+            flash[:message] = "Yarn successfully deleted."
             redirect to '/yarns'
         else
             redirect to '/yarns'

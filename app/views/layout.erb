@@ -119,7 +119,9 @@
     </div>
     
     <div class="wrapper">
- 
+        <% if flash[:message] %>
+            <h3><%= flash[:message] %>
+        <% end %>
 
         <%= yield %>
 
