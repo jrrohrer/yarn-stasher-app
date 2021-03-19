@@ -4,8 +4,19 @@
 <p>Weight: <%= @yarn.weight %><p>
 <p>Fiber: <%= @yarn.fiber %></p>
 
+<form action='/yarns' method='GET'>
+    <input class='button' type='submit' value='All My Yarn'>
+</form>
+
 
 <% if authorized_to_change?(@yarn) %>
-    <button><a href="/yarns/<%= @yarn.id %>/edit">Edit This Yarn</a></button>
-    <button><a href='/yarns/<%= @yarn.id %>/delete'>Delete This Yarn</a></button>
+
+    <form action='/yarns/<%= @yarn.id %>/edit' method='GET'>
+        <input class='button' type='submit' value='Edit Yarn'>
+    </form>
+
+    <form action='/yarns/<%= @yarn.id %>' method='POST'>
+        <input type='hidden' name='_method' value='DELETE'>
+        <input class='button' type='submit' value='Delete Yarn'>
+    </form>
 <% end %>
