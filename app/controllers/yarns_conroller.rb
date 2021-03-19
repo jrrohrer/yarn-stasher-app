@@ -44,7 +44,7 @@ class YarnsController < ApplicationController
         #renders a form to edit an individual yarn
         set_yarn
         if logged_in?
-            if @yarn.user == current_user
+            if authorized_to_change?(@yarn)
                 erb :'/yarns/edit'
             else
                 redirect to "/users/#{current_user.id}"
@@ -58,7 +58,7 @@ class YarnsController < ApplicationController
         #updates an individual yarn entry based on the user's input in the edit form.
         set_yarn
         if logged_in?
-          if @yarn.user == current_user
+          if authorized_to_change?(@yarn)
             @yarn.update(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber])
             redirect to "/yarns/#{@yarn.id}"
           else
@@ -69,8 +69,15 @@ class YarnsController < ApplicationController
         end
     end
 
-    get '/yarns/:id/delete' do
+    delete '/yarns/:id' do
         #removes the yarn from the database
+        set_yarn
+        if authorized_to_change?(@yarn)
+            @yarn.destroy
+            redirect to '/yarns'
+        else
+            redirect to '/yarns'
+        end
     end
 
     private
