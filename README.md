@@ -1,4 +1,22 @@
+YARN STASHER
+
 Yarn Stasher is a RESTful MVC Sinatra-based webapp that allows users to keep track of their yarn stash. Users can sign up and log in and they can create, view, edit, and delete entries to their yarn stash. 
+
+INSTALLATION
+
+Fork and clone this repo, then run bundle install, rake db:migrate, and rake db:seed to set up with some dummy data to play with.
+
+USAGE
+
+Run "shotgun" in your terminal and navigate to localhost:9393/ to view the welcome page. Navigation is in-app from there.
+
+CONTRIBUTING
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/'jrrohrer'/yarn-stasher-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
+
+CODE OF CONDUCT
+
+Everyone interacting in the Yarn Stasher project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct.
 
 LICENSE
 
