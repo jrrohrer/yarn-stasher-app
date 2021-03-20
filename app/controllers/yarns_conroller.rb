@@ -1,8 +1,9 @@
 class YarnsController < ApplicationController
     get '/yarns' do
         if logged_in?
+            @user = User.find_by(id: params[:id])
             @yarns = Yarn.all.select {|yarn| yarn.user_id == session[:user_id]}
-            erb :'/yarns/yarns'
+            erb :'/yarns/stash'
         else
             redirect to '/'
         end
@@ -43,7 +44,7 @@ class YarnsController < ApplicationController
             if authorized_to_change?(@yarn)
                 erb :'/yarns/edit'
             else
-                redirect to "/users/#{current_user.id}"
+                redirect to "/yarns"
             end
         else
             redirect '/'
@@ -60,7 +61,7 @@ class YarnsController < ApplicationController
             redirect to "/yarns/#{@yarn.id}"
           else
             flash[:message] = "You are not authorized to edit that entry."
-            redirect to "/users/#{current_user.id}"
+            redirect to "/yarns"
           end
         else
             redirect to '/'
