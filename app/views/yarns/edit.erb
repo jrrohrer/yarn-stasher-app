@@ -1,6 +1,6 @@
 <h2>Edit Yarn</h2>
 
-<form action='/yarns/<%= @yarn.id %>' method='post'>
+<form class='wide' action='/yarns/<%= @yarn.id %>' method='post'>
     <input type='hidden' name='_method' value='patch'>
     <label for='name'>Brand Name: </label>
         <input type='text' name='name' value='<%= @yarn.name %>'><br>
