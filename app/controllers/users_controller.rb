@@ -46,7 +46,6 @@ class UsersController < ApplicationController
         end
     end
 
-    #logs the user out and redirects to the home page
     get '/logout' do
         session.clear
         flash[:message] = "Logout successful. See you again soon!"
