@@ -30,17 +30,20 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
-        if params[:username] != "" && params[:email] != "" && params[:password] != ""
-            @user = User.create(params)
-            session[:user_id] = @user.id 
-            flash[:message] = "Welcome to Yarn Stasher! Account created successfully."
-            redirect to '/yarns'
-        else 
-            #user gets an error message and redirects back to signup page
-            flash[:message] = "Signup failed. Please fill in all requested information and try again."
+        if User.exists?(username: params[:username])
+            flash[:message] = "User already exists. If you already have an account, please use the log in page. If you do not already have an account, please choose a different username."
             redirect to '/signup'
+        else
+            if params[:username] != "" && params[:email] != "" && params[:password] != ""
+                @user = User.create(params)
+                session[:user_id] = @user.id 
+                flash[:message] = "Welcome to Yarn Stasher! Account created successfully."
+                redirect to '/yarns'
+            else 
+                flash[:message] = "Signup failed. Please fill in all requested information and try again."
+                redirect to '/signup'
+            end
         end
-
     end
 
     #logs the user out and redirects to the home page
