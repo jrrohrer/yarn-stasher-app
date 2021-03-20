@@ -123,7 +123,10 @@
     
     <div class="wrapper">
         <% if flash[:message] %>
-            <h3><%= flash[:message] %>
+            <h4 style="color: #297373;"><%= flash[:message] %></h4>
+        <% end %>
+        <% if flash[:errors] %>
+            <h4 style="color: red;"><%= flash[:errors] %></h4>
         <% end %>
 
         <%= yield %>

@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
 
   get "/" do
     if logged_in?
-      redirect "/users/#{current_user.id}"
+      redirect "/yarns"
     else
       erb :index
     end
@@ -32,6 +32,12 @@ class ApplicationController < Sinatra::Base
     def authorized_to_change?(yarn)
       #checks that the user owns the yarn before allowing them access to methods/buttons to edit or delete yarns
       yarn.user == current_user
+    end
+
+    def redirect_if_not_logged_in
+      if !logged_in?
+        redirect '/'
+      end
     end
   end
 

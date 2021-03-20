@@ -15,11 +15,11 @@ class UsersController < ApplicationController
                 session[:user_id] = @user.id
                 redirect to "/yarns"
             else
-                flash[:message] = "Invalid login. Please try again. If you do not have an account, please sign up."
+                flash[:errors] = "Invalid login. Please try again. If you do not have an account, please sign up."
                 redirect to '/login'
             end 
         else
-            flash[:message] = "User not found. Please sign up if you do not already have an account."
+            flash[:errors] = "User not found. Please sign up if you do not already have an account."
             redirect to '/login'
         end
 
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
     post '/signup' do
         if User.exists?(username: params[:username])
-            flash[:message] = "User already exists. If you already have an account, please use the log in page. If you do not already have an account, please choose a different username."
+            flash[:errors] = "User already exists. If you already have an account, please use the log in page. If you do not already have an account, please choose a different username."
             redirect to '/signup'
         else
             if params[:username] != "" && params[:email] != "" && params[:password] != ""
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
                 flash[:message] = "Welcome to Yarn Stasher! Account created successfully."
                 redirect to '/yarns'
             else 
-                flash[:message] = "Signup failed. Please fill in all requested information and try again."
+                flash[:errors] = "Signup failed. Please fill in all requested information and try again."
                 redirect to '/signup'
             end
         end

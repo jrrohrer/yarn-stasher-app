@@ -1,12 +1,9 @@
 class YarnsController < ApplicationController
     get '/yarns' do
-        if logged_in?
-            @user = User.find_by(id: params[:id])
-            @yarns = Yarn.all.select {|yarn| yarn.user_id == session[:user_id]}
-            erb :'/yarns/stash'
-        else
-            redirect to '/'
-        end
+        redirect_if_not_logged_in
+        @user = User.find_by(id: params[:id])
+        @yarns = Yarn.all.select {|yarn| yarn.user_id == session[:user_id]}
+        erb :'/yarns/stash'
     end
 
     get '/yarns/new' do 
@@ -14,22 +11,15 @@ class YarnsController < ApplicationController
     end
 
     post '/yarns' do
-        #creates and persists the new yarn to the database
-        #checks that the user is logged in and that the form was completed
-        #redirects the user to view the individual yarn they just created
-        if logged_in?
-            if params[:name] != "" && params[:color] != "" && params[:weight] != "" && params[:fiber] != ""
-                @yarn = Yarn.create(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber], user_id: current_user.id)
-                redirect to "/yarns/#{@yarn.id}"
-            else
-                flash[:message] = "Please enter some info about your yarn to create a new entry."
-                redirect to '/yarns/new'
-            end
-        else
-            redirect to '/'
+        redirect_if_not_logged_in
+        if params[:name] != "" && params[:color] != "" && params[:weight] != "" && params[:fiber] != ""
+            @yarn = Yarn.create(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber], user_id: current_user.id)
+            flash[:message] = "Yarn created successfully."
+            redirect to "/yarns/#{@yarn.id}"
+        else                
+            flash[:errors] = "Please enter some info about your yarn to create a new entry."
+            redirect to '/yarns/new'
         end
-
-        
     end
 
     get '/yarns/:id' do
@@ -38,38 +28,29 @@ class YarnsController < ApplicationController
     end
 
     get '/yarns/:id/edit' do
-        #renders a form to edit an individual yarn
         set_yarn
-        if logged_in?
-            if authorized_to_change?(@yarn)
-                erb :'/yarns/edit'
-            else
-                redirect to "/yarns"
-            end
+        redirect_if_not_logged_in
+        if authorized_to_change?(@yarn)
+            erb :'/yarns/edit'
         else
-            redirect '/'
+            redirect to "/yarns"
         end
     end
 
     patch '/yarns/:id' do
-        #updates an individual yarn entry based on the user's input in the edit form.
         set_yarn
-        if logged_in?
-          if authorized_to_change?(@yarn)
+        redirect_if_not_logged_in
+        if authorized_to_change?(@yarn)
             @yarn.update(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber])
             flash[:message] = "Yarn updated successfully."
             redirect to "/yarns/#{@yarn.id}"
-          else
-            flash[:message] = "You are not authorized to edit that entry."
-            redirect to "/yarns"
-          end
         else
-            redirect to '/'
+            flash[:errors] = "You are not authorized to edit this entry."
+            redirect to "/yarns"
         end
     end
 
     delete '/yarns/:id' do
-        #removes the yarn from the database
         set_yarn
         if authorized_to_change?(@yarn)
             @yarn.destroy
