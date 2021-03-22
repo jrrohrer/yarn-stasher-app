@@ -3,7 +3,18 @@ class YarnsController < ApplicationController
         redirect_if_not_logged_in
         @user = User.find_by(id: params[:id])
         user_yarns = Yarn.all.select {|yarn| yarn.user_id == session[:user_id]}
-        @yarns = user_yarns.sort_by &:fiber
+
+        case params[:sort]
+        when "color"
+            @yarns = user_yarns.sort_by &:color
+        when "weight"
+            @yarns = user_yarns.sort_by &:weight
+        when "fiber"
+            @yarns = user_yarns.sort_by &:fiber
+        else
+            @yarns = user_yarns.sort_by &:name
+        end
+        
         erb :'/yarns/stash'
     end
 

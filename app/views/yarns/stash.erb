@@ -1,14 +1,17 @@
 <h2><%= current_user.username %>'s Yarn Stash</h2>
 <p>Click the "Add Yarn" button to add a new yarn to your stash.</p>
+<p>Sort your stash alphabetically by clicking the table headers.</p>
 <p>Click the yarn's brand name to view, edit, or delete that yarn.</p>
 
 <table>
-    <tr>
-        <th scope='col'>Brand</th>
-        <th scope='col'>Color</th>
-        <th scope='col'>Weight</th>
-        <th scope='col'>Fiber</th>
-    </tr>
+    <thead>
+        <tr>
+            <th scope='col'><a href='/yarns?sort=name'>Brand</a></th>
+            <th scope='col'><a href='/yarns?sort=color'>Color</a></th>
+            <th scope='col'><a href='/yarns?sort=weight'>Weight</a></th>
+            <th scope='col'><a href='/yarns?sort=fiber'>Fiber</a></th>
+        </tr>
+    </thead>
     <% @yarns.each do |yarn|%>
         <tr>
             <td><a href='/yarns/<%= yarn.id %>'><%= yarn.name %></a></td>
