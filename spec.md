@@ -29,7 +29,7 @@ Specs:
         [x] User can't sign up with a blank form
         [x] User can't sign up with an account that already exists
 [x] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new)
-[] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
+[x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
 
 Confirm:
 
@@ -39,6 +39,6 @@ Confirm:
 [x] You don't include changes in a commit that aren't related to the commit message
 
 Extended Goals:
-[] Add attributes to Yarn objects (such as number of skeins or yardage)
+[x] Add attributes to Yarn objects (such as number of skeins or yardage)
 [x] Basic Styling
 [x] Error messages
