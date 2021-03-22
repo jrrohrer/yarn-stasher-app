@@ -11,6 +11,10 @@ class YarnsController < ApplicationController
             @yarns = user_yarns.sort_by &:weight
         when "fiber"
             @yarns = user_yarns.sort_by &:fiber
+        when "num_of_skeins"
+            @yarns = user_yarns.sort_by &:num_of_skeins
+        when "yardage"
+            @yarns = user_yarns.sort_by &:yardage
         else
             @yarns = user_yarns.sort_by &:name
         end
@@ -25,7 +29,7 @@ class YarnsController < ApplicationController
     post '/yarns' do
         redirect_if_not_logged_in
         if params[:name] != "" && params[:color] != "" && params[:weight] != "" && params[:fiber] != ""
-            @yarn = Yarn.create(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber], user_id: current_user.id)
+            @yarn = Yarn.create(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber], num_of_skeins: params[:num_of_skeins], yardage: params[:yardage] ,user_id: current_user.id)
             flash[:message] = "Yarn created successfully."
             redirect to "/yarns/#{@yarn.id}"
         else                
@@ -53,7 +57,7 @@ class YarnsController < ApplicationController
         set_yarn
         redirect_if_not_logged_in
         if authorized_to_change?(@yarn)
-            @yarn.update(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber])
+            @yarn.update(name: params[:name], color: params[:color], weight: params[:weight], fiber: params[:fiber], num_of_skeins: params[:num_of_skeins], yardage: params[:yardage])
             flash[:message] = "Yarn updated successfully."
             redirect to "/yarns/#{@yarn.id}"
         else

@@ -10,14 +10,18 @@
             <th scope='col'><a href='/yarns?sort=color'>Color</a></th>
             <th scope='col'><a href='/yarns?sort=weight'>Weight</a></th>
             <th scope='col'><a href='/yarns?sort=fiber'>Fiber</a></th>
+            <th scope='col'><a href='/yarns?sort=num_of_skeins'>Number of Skeins</a></th>
+            <th scope='col'><a href='/yarns?sort=yardage'>Yardage</a></th>
         </tr>
     </thead>
     <% @yarns.each do |yarn|%>
         <tr>
             <td><a href='/yarns/<%= yarn.id %>'><%= yarn.name %></a></td>
-            <td><%= yarn.color%></td>
-            <td><%= yarn.weight%></td>
-            <td><%= yarn.fiber%></td>
+            <td><%= yarn.color %></td>
+            <td><%= yarn.weight %></td>
+            <td><%= yarn.fiber %></td>
+            <td><%= yarn.num_of_skeins %></td>
+            <td><%= yarn.yardage %></td>
         </tr>
     <% end %>
 </table>
